@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="/css/home.css">
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 div1">
+            <!-- form -->
+            <div class="form-container">
+                <center>
+                    <h2>Task</h2>
+                </center>
+                <form class="row g-3" action="/task/create" method="post">
+                    <div class="col-12">
+                        <label for="TaskName" class="form-label">Task Name</label>
+                        <input type="text" name="taskName" class="form-control" id="TaskName" placeholder="Enter Task"
+                            required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="category" aria-label="Default select example" required>
+                            <option value="Personal">Personal</option>
+                            <option value="Professional">Professional</option>
+                            <option value="Skill-up">Skill-up</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date</label>
+                        <input type="date" name="dueDate" class="form-control" id="inputZip" required>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="hidden" name="userId" value="<%=locals.user.id%>" class="form-control"
+                            id="inputZip">
+                    </div>
+                    <div class="col-12">
+                        <center><button type="submit" id="btnSubmit" class="btn btn-dark">Add
+                                Task</button></center>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 div2">
+            <!-- tasks -->
+            <div class="task-conatainer">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let cnt=1;%>
+                            <% for(let t of tasks){%>
+                                <tr>
+                                    <th scope="row">
+                                        <%=cnt%>
+                                    </th>
+                                    <td>
+                                        <%=t.task%>
+                                    </td>
+                                    <td>
+                                        <%=t.category%>
+                                    </td>
+                                    <td>
+                                        <%=t.createdAt.toISOString().substr(0, 10)%>
+                                    </td>
+                                    <td>
+                                        <%=t.dueDate.toISOString().substr(0, 10)%>
+                                    </td>
+                                    <td><a class="btn btn-dark " href="/task/edit/<%=t.id%>">Edit</a>
+                                    </td>
+                                    <td><a class="btn btn-dark"
+                                            href="/task/delete/<%=t.id%>">Delete</a></td>
+                                </tr>
+                                <% cnt++;}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
